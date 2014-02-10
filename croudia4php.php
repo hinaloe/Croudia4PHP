@@ -1,4 +1,11 @@
 <?php
+    
+/**
+ * Croudia4PHP
+ * 
+ * @author  ikr7
+ * @package Croudia4PHP
+ */
 
 class Croudia4PHP {
 	private $client_id;
