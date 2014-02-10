@@ -320,7 +320,61 @@ class Croudia4PHP {
 		return json_decode($res);
 	}
 	
-	
+    public function GET_users_lookup($params = array()){
+		$res = self::get("https://api.croudia.com/users/lookup.json", $params);
+		return $res;
+	}
+
+	public function POST_account_update_profile($params = array()){
+		$res = self::post("https://api.croudia.com/account/update_profile.json", $params);
+		return $res;
+	}
+
+	public function POST_friendships_create($params = array()){
+		$res = self::post("https://api.croudia.com/friendships/create.json", $params);
+		return $res;
+	}
+
+	public function POST_friendships_destroy($params = array()){
+		$res = self::post("https://api.croudia.com/friendships/destroy.json", $params);
+		return $res;
+	}
+
+	public function GET_friendships_show($params = array()){
+		$res = self::get("https://api.croudia.com/friendships/show.json", $params);
+		return $res;
+	}
+
+	public function GET_friendships_lookup($params = array()){
+		$res = self::get("https://api.croudia.com/friendships/lookup.json", $params);
+		return $res;
+	}
+
+	public function GET_friends_ids($params = array()){
+		$res = self::get("https://api.croudia.com/friends/ids.json", $params);
+		return $res;
+	}
+
+	public function GET_followers_ids($params = array()){
+		$res = self::get("https://api.croudia.com/followers/ids.json", $params);
+		return $res;
+	}
+
+	public function GET_friends_list($params = array()){
+		$res = self::get("https://api.croudia.com/friends/list.json", $params);
+		return $res;
+	}
+
+	public function GET_followers_list($params = array()){
+		$res = self::get("https://api.croudia.com/followers/list.json", $params);
+		return $res;
+	}
+
+
+    public function GET_favorites($params = array()){
+		$res = self::get("https://api.croudia.com/favorites.json", $params);
+		return $res;
+    }	
 	
 	public function POST_favorites_create($params = array()){
 		$headers = array(
