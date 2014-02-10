@@ -17,6 +17,52 @@ class Croudia4PHP {
 		$this -> client_id = $c_id;
 		$this -> client_secret = $c_secret;
 	}
+
+    /**
+     * GET request
+     * 
+     * @return  object|array
+     * @param   string  $url        request URL
+     * @param   array   $paramas    request content
+     */
+    public function get($url,$params){
+		$headers = array(
+			"Content-type: application/x-www-form-urlencoded", 
+			"Authorization: Bearer ".$this -> access_token
+		);
+        $opts["http"] = array(
+            "method" => "GET",
+            "header" => $headers,
+            "content" => http_build_query($params),
+            "ignore_errors" => true,
+        );
+        $this -> httphead = $http_response_header;
+        $res = file_get_contents($url, false, stream_context_create($opts));
+        return json_decode($res);
+    }
+    
+    /**
+     * POST request
+     * 
+     * @return  object|array
+     * @param   string  $url        request URL
+     * @param   array   $paramas    request content
+     */
+    public function post($url,$params){
+		$headers = array(
+			"Content-type: application/x-www-form-urlencoded", 
+			"Authorization: Bearer ".$this -> access_token
+		);
+        $opts["http"] = array(
+            "method" => "POST",
+            "header" => $headers,
+            "content" => http_build_query($params),
+            "ignore_errors" => true,
+        );
+        $this -> httphead = $http_response_header;
+        $res = file_get_contents($url, false, stream_context_create($opts));
+        return json_decode($res);
+    }
 	
 	public function getAuthorizeURL(){
 		return "https://api.croudia.com/oauth/authorize?response_type=code&client_id=".$this -> client_id;
