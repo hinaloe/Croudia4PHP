@@ -335,7 +335,103 @@ class Croudia4PHP {
 		$this -> httphead =  $http_response_header;
 		return json_decode($res);
 	}
-	
+
+	public function POST_account_update_profile_image($params = array(),$fname){
+
+		$boundary = '---------------------------'.time();
+		
+		$data = '';
+
+		foreach($params as $key => $value) {
+
+			$data .= "--$boundary" . "\r\n";
+
+			$data .= 'Content-Disposition: form-data; name="' . $key .'"' . "\r\n" . "\r\n";
+
+			$data .= $value . "\r\n";
+
+		}
+		
+		//upload_file
+		
+			$data .= "--$boundary" . "\r\n";
+
+			$data .= sprintf('Content-Disposition: form-data; name="%s"; filename="%s"%s', 'image', $_FILES[$fname]['name'], "\r\n");
+
+			$data .= 'Content-Type: '. $_FILES[$fname]['type'] . "\r\n\r\n";
+
+			$data .= file_get_contents($_FILES[$fname]['tmp_name']) . "\r\n";
+
+		$data .= "--$boundary--" . "\r\n";
+
+		$headers = array(
+			"Authorization: Bearer ".$this -> access_token, 
+			"Content-type: multipart/form-data; boundary=" . $boundary,
+			'Content-Length: '.strlen($data)
+
+		);
+		$opts["http"] = array(
+			"method" => "POST", 
+			"header"  =>  implode("\r\n", $headers), 
+			"content" => $data//http_build_query($params)
+		);
+		
+		//var_dump($opts);
+		
+		$res = @file_get_contents("https://api.croudia.com/account/update_profile_image.json", false, stream_context_create($opts));
+		$this -> httphead =  $http_response_header;
+		$this -> res = $res;
+		return json_decode($res);
+	}
+
+	public function POST_account_update_cover_image($params = array(),$fname){
+
+		$boundary = '---------------------------'.time();
+		
+		$data = '';
+
+		foreach($params as $key => $value) {
+
+			$data .= "--$boundary" . "\r\n";
+
+			$data .= 'Content-Disposition: form-data; name="' . $key .'"' . "\r\n" . "\r\n";
+
+			$data .= $value . "\r\n";
+
+		}
+		
+		//upload_file
+		
+			$data .= "--$boundary" . "\r\n";
+
+			$data .= sprintf('Content-Disposition: form-data; name="%s"; filename="%s"%s', 'image', $_FILES[$fname]['name'], "\r\n");
+
+			$data .= 'Content-Type: '. $_FILES[$fname]['type'] . "\r\n\r\n";
+
+			$data .= file_get_contents($_FILES[$fname]['tmp_name']) . "\r\n";
+
+		$data .= "--$boundary--" . "\r\n";
+
+		$headers = array(
+			"Authorization: Bearer ".$this -> access_token, 
+			"Content-type: multipart/form-data; boundary=" . $boundary,
+			'Content-Length: '.strlen($data)
+
+		);
+		$opts["http"] = array(
+			"method" => "POST", 
+			"header"  =>  implode("\r\n", $headers), 
+			"content" => $data//http_build_query($params)
+		);
+		
+		//var_dump($opts);
+		
+		$res = @file_get_contents("https://api.croudia.com/account/update_cover_image.json", false, stream_context_create($opts));
+		$this -> httphead =  $http_response_header;
+		$this -> res = $res;
+		return json_decode($res);
+	}
+
 	public function POST_account_update_profile($params = array()){
 		$res = self::post("https://api.croudia.com/account/update_profile.json", $params);
 		return $res;
