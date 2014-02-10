@@ -256,22 +256,6 @@ class Croudia4PHP {
 	}
 	
 	
-	public function POST_statuses_spread($params = array()){
-		$headers = array(
-			"Content-type: application/x-www-form-urlencoded", 
-			"Authorization: Bearer ".$this -> access_token
-		);
-		$opts["http"] = array(
-			"method" => "POST", 
-			"header"  =>  implode("\r\n", $headers), 
-			"content" => http_build_query($params)
-		);
-		$id = $params["id"];
-		$res = file_get_contents("https://api.croudia.com/statuses/spread/".$id.".json", false, stream_context_create($opts));
-		$this -> httphead =  $http_response_header;
-		return json_decode($res);
-	}
-	
 	public function GET_statuses_show($params = array()){
 		$headers = array(
 			"Content-type: application/x-www-form-urlencoded", 
@@ -288,6 +272,33 @@ class Croudia4PHP {
 		return json_decode($res);
 	}
 	
+	public function GET_secret_mails($params = array()){
+		$res = self::get("https://api.croudia.com/secret_mails.json", $params);
+		return $res;
+	}
+
+	public function GET_secret_mails_sent($params = array()){
+		$res = self::get("https://api.croudia.com/secret_mails/sent.json", $params);
+		return $res;
+	}
+
+	public function POST_secret_mails_new($params = array()){
+		$res = self::post("https://api.croudia.com/secret_mails/new.json", $params);
+		return $res;
+	}
+
+	public function POST_secret_mails_destroy($params = array()){
+		$id = $params["id"];
+		$res = self::post("https://api.croudia.com/secret_mails/destroy/".$id.".json", $params);
+		return $res;
+	}
+
+	public function GET_secret_mails_show($params = array()){
+		$id = $params["id"];
+		$res = self::get("https://api.croudia.com/secret_mails/show/".$id.".json", $params);
+		return $res;
+	}
+
 	public function GET_users_show($params = array()){
 		$headers = array(
 			"Content-type: application/x-www-form-urlencoded", 
@@ -304,6 +315,11 @@ class Croudia4PHP {
 		return json_decode($res);
 	}
 	
+    public function GET_users_lookup($params = array()){
+		$res = self::get("https://api.croudia.com/users/lookup.json", $params);
+		return $res;
+	}
+
 	public function GET_account_verify_credentials($params = array()){
 		$headers = array(
 			"Content-type: application/x-www-form-urlencoded", 
@@ -320,11 +336,6 @@ class Croudia4PHP {
 		return json_decode($res);
 	}
 	
-    public function GET_users_lookup($params = array()){
-		$res = self::get("https://api.croudia.com/users/lookup.json", $params);
-		return $res;
-	}
-
 	public function POST_account_update_profile($params = array()){
 		$res = self::post("https://api.croudia.com/account/update_profile.json", $params);
 		return $res;
@@ -408,6 +419,22 @@ class Croudia4PHP {
 		return json_decode($res);
 	}
     
+	public function POST_statuses_spread($params = array()){
+		$headers = array(
+			"Content-type: application/x-www-form-urlencoded", 
+			"Authorization: Bearer ".$this -> access_token
+		);
+		$opts["http"] = array(
+			"method" => "POST", 
+			"header"  =>  implode("\r\n", $headers), 
+			"content" => http_build_query($params)
+		);
+		$id = $params["id"];
+		$res = file_get_contents("https://api.croudia.com/statuses/spread/".$id.".json", false, stream_context_create($opts));
+		$this -> httphead =  $http_response_header;
+		return json_decode($res);
+	}
+	
 	public function GET_trends_place($params = array()){
 		$headers = array(
 			"Content-type: application/x-www-form-urlencoded", 
