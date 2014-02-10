@@ -304,7 +304,7 @@ class Croudia4PHP {
 		return json_decode($res);
 	}
 	
-		public function GET_account_verify_credentials($params = array()){
+	public function GET_account_verify_credentials($params = array()){
 		$headers = array(
 			"Content-type: application/x-www-form-urlencoded", 
 			"Authorization: Bearer ".$this -> access_token
@@ -408,7 +408,7 @@ class Croudia4PHP {
 		return json_decode($res);
 	}
     
-    	public function GET_trends_place($params = array()){
+	public function GET_trends_place($params = array()){
 		$headers = array(
 			"Content-type: application/x-www-form-urlencoded", 
 			"Authorization: Bearer ".$this -> access_token
