@@ -1,12 +1,8 @@
 #Croudia4PHP
-##言い訳
+
 Croudia API をPHPで扱うためのライブラリです。  
-一応、[Croudia REST API 1.0](http://developer.croudia.com/docs/api10)
-にあるエンドポイントは全て扱える…と思いましたが、  ~~Croudia側での不具合によりmentionsが取得できません~~  
+とりあえず[Croudia REST API 1.0](http://developer.croudia.com/docs/api10)とかexample見ればわかるはず。
 
-~~また、refresh_tokenとかその辺のアレも実装してないので、めっちゃトークン切れます。これもいつかなんとかする~~  
-
-以上の点により、あまり実用性は無いと思います、テスト程度に使ってください
 
 ##つかいかた
 
@@ -14,35 +10,77 @@ example見ればわかる
 
 ##メソッド一覧
 
+### Auth
 getAuthorizeURL()…認証URLを返します  
 setAccessToken()…callbackに渡される code というGETパラメータを渡してアクセストークンをCroudia4PHPオブジェクトにセットします  
 refreshAccessToken()…アクセストークンを更新する 各メソッドでAPIを叩いて$c4p -> httphead[0] に"HTTP/1.1 401 Authorization Required"が入っているときに叩くといいとか
 
-
+### Timeline
 GET_statuses_public_timeline()  
 GET_statuses_home_timeline()  
 GET_statuses_user_timeline()  
 GET_statuses_mentions()  
-GET_statuses_show()  
-
+ 
+### statuses
 POST_statuses_update()  
-POST_statuses_update_with_media()  
-POST_statuses_spread()  
-POST_statuses_destroy()  
+POST_statuses_update_with_media(array,file)  
+POST_statuses_destroy()
+GET_statuses_show()
 
+### secret mail
+GET_secret_mails()
+GET_secret_mails_sent()
+POST_secret_mails_new()
+POST_secret_mails_destroy()
+GET_secret_mails_show()
 
+### user
+GET_users_show()
+GET_users_lookup()
 
+### settings
+GET_account_verify_credentials()
+POST_account_update_profile_image(array,file)
+POST_account_update_cover_image(array,file)
+POST_account_update_profile()
+
+### follow
+POST_friendships_create()
+POST_friendships_destroy()
+GET_friendships_show()
+GET_friendships_lookup()
+GET_friends_ids()
+GET_followers_ids()
+GET_friends_list()
+GET_followers_list()
+
+### favorites
+GET_favorites()
 POST_favorites_create()  
 POST_favorites_destroy()  
 
+### spread
+POST_statuses_spread()
+
+### Trends
+GET_trends_place()
+
+### Search API
+<small>まだです。</small>
+
 このへんは[Croudia REST API 1.0](http://developer.croudia.com/docs/api10) を見て察してくれ
 
-##POST_statuses_update_with_media利用について
+とりあえずパラメーターは配列にして引数に指定してやったらいいけど`(array,file)`ってなってるやつは`$_FILES`に格納されたのをそのまま使う。`$_FILES[name]`ならfilsにnameを指定してやるなり
 
-POSTされて$_FILESに格納されたのをそのまま受け渡します
+ローカルファイル等を扱う際は`$_FILES`に配列突っ込めば使える(?)
 
-第二引数にPOST時のnameを指定。
+```php
+$_FILES[$name] = array (
+  "name" => "ファイル名",
+  "type" => "mime-type(ex. image/png)",
+  "tmp_name"=>"ファイルへのパス。",
+);  
 
-ローカルファイル等を扱う際は$_FILESに配列突っ込めば使える(?)
+```
 
-
+ここらへんの仕様はころころ変わりそう(今後のマルチファイルうｐ対応の可能性。)
