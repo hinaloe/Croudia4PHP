@@ -44,8 +44,8 @@ class Croudia4PHP {
             "content" => http_build_query($params),
             "ignore_errors" => true,
         );
-        $this -> httphead = $http_response_header;
         $res = file_get_contents($url, false, stream_context_create($opts));
+        $this -> httphead = $http_response_header;
         return json_decode($res);
     }
     
@@ -67,8 +67,8 @@ class Croudia4PHP {
             "content" => http_build_query($params),
             "ignore_errors" => true,
         );
-        $this -> httphead = $http_response_header;
         $res = file_get_contents($url, false, stream_context_create($opts));
+        $this -> httphead = $http_response_header;
         return json_decode($res);
     }
 	
