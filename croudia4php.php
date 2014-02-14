@@ -8,6 +8,14 @@
  */
 
 class Croudia4PHP {
+    /**
+     * Options
+     *
+     * @var string
+     * @var string
+     * @var string
+     * @var string
+     */
 	private $client_id;
 	private $client_secret;
 	private $access_token;
