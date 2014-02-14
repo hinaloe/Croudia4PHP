@@ -20,6 +20,7 @@ class Croudia4PHP {
 	private $client_secret;
 	private $access_token;
 	private $refresh_token;
+    public $httphead;
 	
 	public function __construct($c_id, $c_secret) {
 		$this -> client_id = $c_id;
@@ -187,18 +188,8 @@ class Croudia4PHP {
 	}
 	
 	public function POST_statuses_update($params = array()){
-		$headers = array(
-			"Content-type: application/x-www-form-urlencoded", 
-			"Authorization: Bearer ".$this -> access_token
-		);
-		$opts["http"] = array(
-			"method" => "POST", 
-			"header"  =>  implode("\r\n", $headers), 
-			"content" => http_build_query($params)
-		);
-		$res = file_get_contents("https://api.croudia.com/statuses/update.json", false, stream_context_create($opts));
-		$this -> httphead =  $http_response_header;
-		return json_decode($res);
+		$res = self::post("https://api.croudia.com/statuses/update.json", $params);
+		return $res;
 	}
 	
 	
@@ -530,19 +521,9 @@ class Croudia4PHP {
 	}
     
 	public function POST_statuses_spread($params = array()){
-		$headers = array(
-			"Content-type: application/x-www-form-urlencoded", 
-			"Authorization: Bearer ".$this -> access_token
-		);
-		$opts["http"] = array(
-			"method" => "POST", 
-			"header"  =>  implode("\r\n", $headers), 
-			"content" => http_build_query($params)
-		);
 		$id = $params["id"];
-		$res = file_get_contents("https://api.croudia.com/statuses/spread/".$id.".json", false, stream_context_create($opts));
-		$this -> httphead =  $http_response_header;
-		return json_decode($res);
+		$res = self::post("https://api.croudia.com/statuses/spread/".$id.".json", $params);
+		return $res;
 	}
 	
 	public function GET_trends_place($params = array()){
@@ -563,4 +544,3 @@ class Croudia4PHP {
 
 	
 }
-	
