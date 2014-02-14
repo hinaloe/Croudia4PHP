@@ -79,10 +79,15 @@ class Croudia4PHP {
 		$opts["http"] = array(
 			"method" => "POST", 
 			"header"  => "Content-type: application/x-www-form-urlencoded",
-			"content" => http_build_query($params)
+			"content" => http_build_query($params),
+			"ignore_errors" => true,
+
 		);
 		
 		$res = file_get_contents("https://api.croudia.com/oauth/token", false, stream_context_create($opts));
+		if(isset( json_decode($res) ->error)){
+			return json_decode($res);
+		}
 		$access_token = json_decode($res)  -> access_token;
 		$refresh_token = json_decode($res)  -> refresh_token;
 		$this -> access_token = $access_token;
@@ -95,7 +100,8 @@ class Croudia4PHP {
 			"grant_type" => "refresh_token", 
 			"client_id" => $this -> client_id, 
 			"client_secret" => $this -> client_secret, 
-			"refresh_token" => $this -> refresh_token
+			"refresh_token" => $this -> refresh_token,
+            "ignore_errors" => true,
 		);
 		
 		$opts["http"] = array(

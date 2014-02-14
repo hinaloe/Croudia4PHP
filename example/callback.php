@@ -13,7 +13,13 @@ $c4p = new Croudia4PHP($ci, $cs);
 
 //GETでcode というパラメータが渡されるのでsetAccessToken()に渡してあげてください, 必須です.
 //code 自体はアクセストークンではありません, 微妙なメソッド名で申し訳ない.
-$c4p -> setAccessToken($_GET["code"]);
+$token = $c4p -> setAccessToken($_GET["code"]);
+
+//トークンの取得失敗してたら止める.
+//$tokenには正常時にはaccess_tokenが、エラー時にはレスポンスのstdClassが入るように今のところしてるのでそこらへんをチェックする。
+if(is_object($token) && $token -> error ){
+    exit($token->error);
+}
 
 //ここでは例として"Croudia4PHP による投稿のテスト"と投稿し(ささやき)ます.
 $res = $c4p -> POST_statuses_update(array("status" => "Croudia4PHP による投稿のテスト"));
