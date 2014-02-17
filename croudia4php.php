@@ -72,6 +72,130 @@ class Croudia4PHP {
         $this -> httphead = $http_response_header;
         return json_decode($res);
     }
+
+    public function post_with_media($url,array $params,$media,$media_to){
+        $boundary = '--------------------' . sha1(mt_rand() . microtime());
+        $medias = array();
+        if(is_string($media)){
+            if(isset($_FILES[$media])){
+                $medias[0] = array(
+                    "filename" => $_FILES[$media]["name"],
+                    "type" => $_FILES[$media]["type"],
+                    "path" => $_FILES[$media]["tmp_name"],
+                    "name" => $media_to,
+                );
+                
+            }else{
+                $medias[0] = array(
+                    "path" => $media,
+                    "type" => "application/octet-stream",
+                    "name" => $media_to,
+                );
+                $medias["filename"] = md5(mt_rand() . microtime());
+            }
+
+        }elseif(is_string($media["tmp_name"])){
+            $medias[0] = array(
+                "filename" => $media["name"],
+                "type" => $media["type"],
+                "path" => $media["tmp_name"],
+                "name" => $media_to,
+            );
+
+        }elseif(is_array($media)){
+            foreach($media as $key => $value){
+                if(is_string($value)){
+                    if(is_array($media_to)){
+                        if(isset($media_to[$key])){
+                            $name = $media_to[$key]
+                        }else{
+                            $name = reset($media_to);
+                        }
+                    }elseif(is_string($media_to)){
+                        $name = $media_to;
+                    }else{
+                        $name = "media";
+                    }
+                    $medias[] = array(
+                        "path" => $value,
+                        "type" => "application/octet-stream",
+                        "filename" => md5(mt_rand() . microtime()),
+                        "name" => $name,
+                    );
+
+                }elseif(is_array($value)){
+                    if(isset($value["tmp_name"])){
+                        if(is_array($media_to)){
+                            if(isset($media_to[$key])){
+                                $name = $media_to[$key];
+                            }else{
+                                $name = reset($media_to);
+                            }
+                        }elseif(is_string($media_to)){
+                            $name = $media_to;
+                        }else{
+                            $name = "media";
+                        }
+                        $medias[] = array(
+                            "path" => $value["tmp_name"],
+                            "type" => $value["type"],
+                            "filename" => $value["name"],
+                            "name" => $name,
+                        );
+                    }elseif(isset($value["path"])){
+                        $medias[] = array(
+                            "path" => $value["path"],
+                            "type" => "application/octet-stream",
+                            "filename" => md5(mt_rand() . microtime()),
+                            "name" => $value["name"],
+                        );
+                    }
+                }
+            }
+        }
+        $lines = array();
+        foreach($params as $key => $value) {
+            array_push(
+                $lines,
+                "--{$boundary}",
+                "Content-Disposition: form-data; name=\"{$key}\"",
+                "Content-Type: application/octet-stream",
+                "",
+                $value
+            );
+
+        }
+        foreach($medias as $key => $value) {
+            $content = @file_get_contents($value["path"]);
+            array_push(
+                $lines,
+                "--{$boundary}",
+                "form-data; name=\"" . $value['name'] . "\"; filename=\"" . $value['filename'] . "\"",
+                "Content-Type: " . $value['type'],
+                "",
+                $content
+            );
+        }
+        $lines[] = "--{$boundary}--";
+        $data = implode("\r\n", $lines);
+
+        $headers = array(
+			"Authorization: Bearer ".$this -> access_token, 
+			"Content-type: multipart/form-data; boundary=" . $boundary,
+			'Content-Length: '.strlen($data)
+
+		);
+		$opts["http"] = array(
+			"method" => "POST", 
+			"header"  =>  implode("\r\n", $headers), 
+			"content" => $data,
+			"ignore_errors" => true,
+		);
+
+        $res = file_get_contents($url, false, stream_context_create($opts));
+        $this -> httphead =  $http_response_header;
+		return json_decode($res);
+    }
 	
 	public function getAuthorizeURL(){
 		return "https://api.croudia.com/oauth/authorize?response_type=code&client_id=".$this -> client_id;
