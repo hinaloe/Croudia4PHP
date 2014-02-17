@@ -110,7 +110,6 @@ class Croudia4PHP {
 			"client_id" => $this -> client_id, 
 			"client_secret" => $this -> client_secret, 
 			"refresh_token" => $this -> refresh_token,
-            "ignore_errors" => true,
 		);
 		
 		$opts["http"] = array(
@@ -192,7 +191,8 @@ class Croudia4PHP {
 		$opts["http"] = array(
 			"method" => "POST", 
 			"header"  =>  implode("\r\n", $headers), 
-			"content" => $data//http_build_query($params)
+			"content" => $data,//http_build_query($params)
+			"ignore_errors" => true,
 		);
 		
 		//var_dump($opts);
@@ -295,7 +295,8 @@ class Croudia4PHP {
 		$opts["http"] = array(
 			"method" => "POST", 
 			"header"  =>  implode("\r\n", $headers), 
-			"content" => $data//http_build_query($params)
+			"content" => $data,
+			"ignore_errors" => true,
 		);
 		
 		//var_dump($opts);
@@ -343,7 +344,8 @@ class Croudia4PHP {
 		$opts["http"] = array(
 			"method" => "POST", 
 			"header"  =>  implode("\r\n", $headers), 
-			"content" => $data//http_build_query($params)
+			"content" => $data,
+			"ignore_errors" => true,
 		);
 		
 		//var_dump($opts);
@@ -422,6 +424,61 @@ class Croudia4PHP {
 		$res = self::post("https://api.croudia.com/statuses/spread/".$id.".json", $params);
 		return $res;
 	}
+
+    public function POST_statuses_share($params = array()){
+		$res = self::post("https://api.croudia.com/statuses/share.json", $params);
+		return $res;
+	}
+
+    public function POST_statuses_share_with_media($params = array(),$fname){
+
+		$boundary = '---------------------------'.time();
+		
+		$data = '';
+
+		foreach($params as $key => $value) {
+
+			$data .= "--$boundary" . "\r\n";
+
+			$data .= 'Content-Disposition: form-data; name="' . $key .'"' . "\r\n" . "\r\n";
+
+			$data .= $value . "\r\n";
+
+		}
+		
+		//upload_file
+		
+			$data .= "--$boundary" . "\r\n";
+
+			$data .= sprintf('Content-Disposition: form-data; name="%s"; filename="%s"%s', 'image', $_FILES[$fname]['name'], "\r\n");
+
+			$data .= 'Content-Type: '. $_FILES[$fname]['type'] . "\r\n\r\n";
+
+			$data .= file_get_contents($_FILES[$fname]['tmp_name']) . "\r\n";
+
+		$data .= "--$boundary--" . "\r\n";
+
+		$headers = array(
+			"Authorization: Bearer ".$this -> access_token, 
+			"Content-type: multipart/form-data; boundary=" . $boundary,
+			'Content-Length: '.strlen($data)
+
+		);
+		$opts["http"] = array(
+			"method" => "POST", 
+			"header"  =>  implode("\r\n", $headers), 
+			"content" => $data,//http_build_query($params)
+			"ignore_errors" => true,
+		);
+		
+		//var_dump($opts);
+		
+		$res = @file_get_contents("https://api.croudia.com/statuses/share_with_media.json", false, stream_context_create($opts));
+		$this -> httphead =  $http_response_header;
+		return json_decode($res);
+	}
+
+
 	
 	public function GET_trends_place($params = array()){
 		$res = self::get("https://api.croudia.com/trends/place.json", $params);
