@@ -107,7 +107,7 @@ class Croudia4PHP {
                 if(is_string($value)){
                     if(is_array($media_to)){
                         if(isset($media_to[$key])){
-                            $name = $media_to[$key]
+                            $name = $media_to[$key];
                         }else{
                             $name = reset($media_to);
                         }
