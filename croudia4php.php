@@ -450,7 +450,7 @@ class Croudia4PHP {
 		
 			$data .= "--$boundary" . "\r\n";
 
-			$data .= sprintf('Content-Disposition: form-data; name="%s"; filename="%s"%s', 'image', $_FILES[$fname]['name'], "\r\n");
+			$data .= sprintf('Content-Disposition: form-data; name="%s"; filename="%s"%s', 'media', $_FILES[$fname]['name'], "\r\n");
 
 			$data .= 'Content-Type: '. $_FILES[$fname]['type'] . "\r\n\r\n";
 
