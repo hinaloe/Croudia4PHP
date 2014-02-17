@@ -170,7 +170,7 @@ class Croudia4PHP {
             array_push(
                 $lines,
                 "--{$boundary}",
-                "form-data; name=\"" . $value['name'] . "\"; filename=\"" . $value['filename'] . "\"",
+                "Content-Disposition: form-data; name=\"" . $value['name'] . "\"; filename=\"" . $value['filename'] . "\"",
                 "Content-Type: " . $value['type'],
                 "",
                 $content
