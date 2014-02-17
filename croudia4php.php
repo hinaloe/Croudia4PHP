@@ -277,54 +277,8 @@ class Croudia4PHP {
 	
 	
 	public function POST_statuses_update_with_media($params = array(),$fname){
-
-		$boundary = '---------------------------'.time();
-
-
-		
-		$data = '';
-
-		foreach($params as $key => $value) {
-
-			$data .= "--$boundary" . "\r\n";
-
-			$data .= 'Content-Disposition: form-data; name="' . $key .'"' . "\r\n" . "\r\n";
-
-			$data .= $value . "\r\n";
-
-		}
-		
-		//upload_file
-		
-			$data .= "--$boundary" . "\r\n";
-
-			$data .= sprintf('Content-Disposition: form-data; name="%s"; filename="%s"%s', 'media', $_FILES[$fname]['name'], "\r\n");
-
-			$data .= 'Content-Type: '. $_FILES[$fname]['type'] . "\r\n\r\n";
-
-			$data .= file_get_contents($_FILES[$fname]['tmp_name']) . "\r\n";
-
-		$data .= "--$boundary--" . "\r\n";
-
-		$headers = array(
-			"Authorization: Bearer ".$this -> access_token, 
-			"Content-type: multipart/form-data; boundary=" . $boundary,
-			'Content-Length: '.strlen($data)
-
-		);
-		$opts["http"] = array(
-			"method" => "POST", 
-			"header"  =>  implode("\r\n", $headers), 
-			"content" => $data,//http_build_query($params)
-			"ignore_errors" => true,
-		);
-		
-		//var_dump($opts);
-		
-		$res = @file_get_contents("https://api.croudia.com/statuses/update_with_media.json", false, stream_context_create($opts));
-		$this -> httphead =  $http_response_header;
-		$this -> res = $res;
-		return json_decode($res);
+		$res = self::post_with_media("https://api.croudia.com/statuses/update_with_media.json", $params, $fname , "media");
+		return $res;
 	}
 	
 	public function POST_statuses_destroy($params = array()){
