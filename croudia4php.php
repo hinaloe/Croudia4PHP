@@ -20,11 +20,11 @@ class Croudia4PHP {
 	private $client_secret;
 	private $access_token;
 	private $refresh_token;
-    public $httphead;
+	public  $httphead;
 	
-	public function __construct($c_id, $c_secret) {
-		$this -> client_id = $c_id;
-		$this -> client_secret = $c_secret;
+	public function __construct($client_id, $client_secret) {
+		$this -> client_id = $client_id;
+		$this -> client_secret = $client_secret;
 	}
 
     /**
@@ -274,8 +274,7 @@ class Croudia4PHP {
 		$res = self::post("https://api.croudia.com/statuses/update.json", $params);
 		return $res;
 	}
-	
-	
+
 	public function POST_statuses_update_with_media($params = array(),$fname){
 		$res = self::post_with_media("https://api.croudia.com/statuses/update_with_media.json", $params, $fname , "media");
 		return $res;
