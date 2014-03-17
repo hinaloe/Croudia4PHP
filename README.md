@@ -86,4 +86,11 @@ $_FILES[$name] = array (
 
 ```
 
+↓これでも大丈夫のはず
+
+```php
+POST_statuses_update_with_media(array("status"=>"test"),"c:\\path\\to\\img.png");
+```
+
+
 ここらへんの仕様はころころ変わりそう(今後のマルチファイルうｐ対応の可能性。)
