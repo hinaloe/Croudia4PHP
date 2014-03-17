@@ -66,7 +66,10 @@ POST_statuses_spread()
 GET_trends_place()
 
 ### Search API
-<small>まだです。</small>
+function GET_search_voices()
+function GET_users_search()
+function GET_profile_search()
+function GET_search_favorites()
 
 このへんは[Croudia REST API 1.0](http://developer.croudia.com/docs/api10) を見て察してくれ
 
