@@ -431,6 +431,26 @@ class Croudia4PHP {
 		return $res;
 	}
 
+    public function GET_search_voices($params = array()){
+        $res = self::get("https://api.croudia.com/search/voices.json", $params);
+        return $res;
+    }
+
+    public function GET_users_search($params = array()){
+        $res = self::get("https://api.croudia.com/users/search.json", $params);
+        return $res;
+    }
+
+    public function GET_profile_search($params = array()){
+        $res = self::get("https://api.croudia.com/profile/search.json", $params);
+        return $res;
+    }
+
+    public function GET_search_favorites($params = array()){
+        $res = self::get("https://api.croudia.com/search/favorites.json", $params);
+        return $res;
+    }
+
 
 	
 }
