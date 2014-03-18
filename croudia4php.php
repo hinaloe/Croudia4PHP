@@ -196,11 +196,21 @@ class Croudia4PHP {
         $this -> httphead =  $http_response_header;
 		return json_decode($res);
     }
-	
+        /**
+         * Get authorize url
+         * 
+         * @return string   authorize URL
+         * 
+         */
         public function getAuthorizeURL(){
                 return "https://api.croudia.com/oauth/authorize?response_type=code&client_id=".$this -> client_id;
         }
-	
+        /**
+         * set Access Token
+         * 
+         * @return string   access_token
+         * @param string $code authorization_code 
+         */
         public function setAccessToken($code){
                 $params = array(
                         "grant_type" => "authorization_code", 
@@ -227,7 +237,13 @@ class Croudia4PHP {
                 $this -> refresh_token = $refresh_token;
                 return $this -> access_token;
         }
-
+        
+        /**
+         * refresh Access Token
+         * 
+         * @return string access_token
+         * 
+         */
         public function refreshAccessToken(){
                 $params = array(
                         "grant_type" => "refresh_token", 
@@ -249,37 +265,94 @@ class Croudia4PHP {
                 $this -> refresh_token = $refresh_token;
                 return $this -> access_token;
         }
-	
+
+        /**
+         *  public timeline
+         * 
+         * @param array $params
+         * @return array $res
+         * 
+         * @link https://developer.croudia.com/docs/01_statuses_public_timeline 
+         */
         public function GET_statuses_public_timeline($params = array()){
                 $res = self::get("https://api.croudia.com/statuses/public_timeline.json", $params);
                 return $res;
         }
 
+        /**
+         *  home timeline
+         * 
+         * @param array $params
+         * @return array $res
+         * 
+         * @link https://developer.croudia.com/docs/02_statuses_home_timeline
+         */
         public function GET_statuses_home_timeline($params = array()){
                 $res = self::get("https://api.croudia.com/statuses/home_timeline.json", $params);
                 return $res;
         }
 
+        /**
+         * Get User Timeline
+         * 
+         * @param array $params
+         * @return array $res
+         * 
+         * @link https://developer.croudia.com/docs/03_statuses_user_timeline
+         */
         public function GET_statuses_user_timeline($params = array()){
                 $res = self::get("https://api.croudia.com/statuses/user_timeline.json", $params);
                 return $res;
         }
-	
+
+        /**
+         * Mentions
+         * 
+         * @param array $params
+         * @return array $res
+         * 
+         * @link https://developer.croudia.com/docs/04_statuses_mentions 
+         */
         public function GET_statuses_mentions($params = array()){
                 $res = self::get("https://api.croudia.com/statuses/mentions.json", $params);
                 return $res;
         }
 
+        /**
+         * Update status
+         * 
+         * @param array $params
+         * @return stdClass $res
+         * 
+         * @link https://developer.croudia.com/docs/11_statuses_update 
+         */
         public function POST_statuses_update($params = array()){
                 $res = self::post("https://api.croudia.com/statuses/update.json", $params);
                 return $res;
         }
 
+        /**
+         * update status with media
+         * 
+         * @param array $params
+         * @param  array|string $fname filename
+         * @return stdClass $res
+         * 
+         * @link https://developer.croudia.com/docs/14_statuses_update_with_media
+         */
         public function POST_statuses_update_with_media($params = array(),$fname){
                 $res = self::post_with_media("https://api.croudia.com/statuses/update_with_media.json", $params, $fname , "media");
                 return $res;
         }
-	
+
+        /**
+         * destroy status
+         * 
+         * @param array $params
+         * @return stdClass $res
+         * 
+         * @link https://developer.croudia.com/docs/12_statuses_destroy
+         */
         public function POST_statuses_destroy($params = array()){
                 $id = $params["id"];
                 $res = self::post("https://api.croudia.com/statuses/destroy/".$id.".json", $params);
@@ -287,69 +360,175 @@ class Croudia4PHP {
         }
 
 
+        /**
+         * Retrieve a status
+         * 
+         * @param array $params
+         * @return stdClass $res
+         * 
+         * @link https://developer.croudia.com/docs/13_statuses_show 
+         */
         public function GET_statuses_show($params = array()){
                 $id = $params["id"];
                 $res = self::get("https://api.croudia.com/statuses/show/".$id.".json", $params);
                 return $res;
         }
 
+        /**
+         * Get incoming secret mails
+         * 
+         * @param array $params
+         * @return array $res
+         * 
+         * @link https://developer.croudia.com/docs/21_secret_mails 
+         */
         public function GET_secret_mails($params = array()){
                 $res = self::get("https://api.croudia.com/secret_mails.json", $params);
                 return $res;
         }
 
+        /**
+         * Get outgoing secret mails
+         * 
+         * @param array $params
+         * @return array $res
+         * 
+         * @link https://developer.croudia.com/docs/22_secret_mails_sent 
+         */
         public function GET_secret_mails_sent($params = array()){
                 $res = self::get("https://api.croudia.com/secret_mails/sent.json", $params);
                 return $res;
         }
 
+        /**
+         * Send a new secret mail
+         * 
+         * @param array $params
+         * @return stdClass $res
+         * 
+         * @link https://developer.croudia.com/docs/23_secret_mails_new 
+         */
         public function POST_secret_mails_new($params = array()){
                 $res = self::post("https://api.croudia.com/secret_mails/new.json", $params);
                 return $res;
         }
 
+        /**
+         * destroy a secret mail
+         * 
+         * @param array $params
+         * @return stdClass $res
+         * 
+         * @link https://developer.croudia.com/docs/24_secret_mails_destroy 
+         */
         public function POST_secret_mails_destroy($params = array()){
                 $id = $params["id"];
                 $res = self::post("https://api.croudia.com/secret_mails/destroy/".$id.".json", $params);
                 return $res;
         }
 
+        /**
+         * Get a secret mail
+         * 
+         * @param array $params
+         * @return stdClass $res
+         * 
+         * @link https://developer.croudia.com/docs/25_secret_mails_show 
+         */
         public function GET_secret_mails_show($params = array()){
                 $id = $params["id"];
                 $res = self::get("https://api.croudia.com/secret_mails/show/".$id.".json", $params);
                 return $res;
         }
 
+        /**
+         * Retrieve a user
+         * 
+         * @param array $params
+         * @return stdClass $res
+         * 
+         * @link https://developer.croudia.com/docs/31_users_show 
+         */
         public function GET_users_show($params = array()){
                 $res = self::get("https://api.croudia.com/users/show.json", $params);
                 return $res;
         }
 
+        /**
+         * Lookup Users
+         * 
+         * @param array $params
+         * @return array $res
+         * 
+         * @link https://developer.croudia.com/docs/32_users_lookup 
+         */
         public function GET_users_lookup($params = array()){
                 $res = self::get("https://api.croudia.com/users/lookup.json", $params);
                 return $res;
         }
 
+        /**
+         * Retrieve the Authenticated User
+         * 
+         * @param array $params
+         * @return stdClass $res
+         * 
+         * @link https://developer.croudia.com/docs/35_account_verify_credentials 
+         */
         public function GET_account_verify_credentials($params = array()){
                 $res = self::get("https://api.croudia.com/account/verify_credentials.json", $params);
                 return $res;
         }
 
+        /**
+         * Update profile image
+         * 
+         * @param array $params
+         * @param array|String $fname
+         * @return stdClass $res
+         * 
+         * @link https://developer.croudia.com/docs/36_account_update_profile_image 
+         */
         public function POST_account_update_profile_image($params = array(),$fname){
                 $res = self::post_with_media("https://api.croudia.com/account/update_profile_image.json", $params, $fname , "image");
                 return $res;
         }
 
+        /**
+         * Update cover image
+         * 
+         * @param array $params
+         * @param array|String $fname
+         * @return stdClass $res
+         * 
+         * @link https://developer.croudia.com/docs/39_account_update_cover_image 
+         */
         public function POST_account_update_cover_image($params = array(),$fname){
                 $res = self::post_with_media("https://api.croudia.com/account/update_cover_image.json", $params, $fname , "image");
                 return $res;
         }
 
+        /**
+         * Update profile
+         * 
+         * @param array $params
+         * @return stdClass $res
+         * 
+         * @link https://developer.croudia.com/docs/37_account_update_profile 
+         */
         public function POST_account_update_profile($params = array()){
                 $res = self::post("https://api.croudia.com/account/update_profile.json", $params);
                 return $res;
         }
 
+        /**
+         * Follow a user
+         * 
+         * @param array $params
+         * @return stdClass
+         * 
+         * @link https://developer.croudia.com/docs/41_friendships_create 
+         */
         public function POST_friendships_create($params = array()){
                 $res = self::post("https://api.croudia.com/friendships/create.json", $params);
                 return $res;
