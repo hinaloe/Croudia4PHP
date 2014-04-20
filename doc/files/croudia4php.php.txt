@@ -424,6 +424,21 @@ class Croudia4PHP {
         }
 
         /**
+         * Send a new secret mail with media
+         * 
+         * @param array $params
+         * @param  array|string $fname filename
+         * @return stdClass $res
+         * 
+         * @link https://developer.croudia.com/docs/26_secret_mails_new_with_media
+         */
+        public function POST_secret_mails_new_with_media($params = array(),$fname){
+                $res = self::post_with_media("https://api.croudia.com/secret_mails/new_with_media.json", $params, $fname , "media");
+                return $res;
+        }
+
+
+        /**
          * destroy a secret mail
          * 
          * @param array $params
@@ -786,5 +801,4 @@ class Croudia4PHP {
         }
 
 
-	
 }
