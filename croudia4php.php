@@ -73,6 +73,15 @@ class Croudia4PHP {
         return json_decode($res);
     }
 
+    /**
+     * POST requrest with media
+     * 
+     * @param string $url
+     * @param array $params
+     * @param string|array $media
+     * @param string|array $media_to
+     * @return array|stdClass $res
+     */
     public function post_with_media($url,array $params,$media,$media_to){
         $boundary = '--------------------' . sha1(mt_rand() . microtime());
         $medias = array();
@@ -196,6 +205,7 @@ class Croudia4PHP {
         $this -> httphead =  $http_response_header;
 		return json_decode($res);
     }
+
         /**
          * Get authorize url
          * 
