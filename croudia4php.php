@@ -42,7 +42,7 @@ class Croudia4PHP {
         $opts["http"] = array(
           "method" => "GET",
           "header" => $headers,
-          "content" => http_build_query($params),
+        //  "content" => http_build_query($params),
           "ignore_errors" => true,
         );
         $url .= $params ?  "?".http_build_query($params) : "" ;
