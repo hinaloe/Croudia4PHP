@@ -32,7 +32,7 @@ class Croudia4PHP {
      *
      * @return  object|array
      * @param   string  $url        request URL
-     * @param   array   $paramas    request content
+     * @param   array   $params    request content
      */
     public function get($url,$params){
         $headers = array(
@@ -56,7 +56,7 @@ class Croudia4PHP {
      *
      * @return  object|array
      * @param   string  $url        request URL
-     * @param   array   $paramas    request content
+     * @param   array   $params    request content
      */
     public function post($url,$params){
 		$headers = array(
@@ -747,6 +747,54 @@ class Croudia4PHP {
         public function GET_trends_place($params = array()){
                 $res = self::get("https://api.croudia.com/trends/place.json", $params);
                 return $res;
+        }
+
+        /**
+         * mute the specified user
+         *
+         * @param array $params
+         * @return stdClass $res UserObject
+         *
+         * @link https://developer.croudia.com/docs/71_mutes_users_create
+         */
+        public function POST_mutes_users_create ($params = array()){
+          return self::post("https://api.croudia.com/mutes/users/create.json", $params);
+        }
+
+        /**
+         * unmute the specified user
+         *
+         * @param array $params
+         * @return stdClass UserObject
+         *
+         * @link https://developer.croudia.com/docs/72_mutes_users_destroy
+         */
+        public function POST_mutes_users_destroy ( $params = array() ){
+          return self::post("https://api.croudia.com/mutes/users/destroy.json", $params);
+        }
+
+        /**
+         *
+         *
+         * @param array $params
+         * @return stdClass
+         *
+         * @link https://developer.croudia.com/docs/74_mutes_users_list
+         */
+        public function GET_mutes_users_list ( $params = array() ){
+          return self::get("https://api.croudia.com/mutes/users/list.json", $params);
+        }
+
+        /**
+         *
+         *
+         * @param array $params
+         * @return stdClass
+         *
+         * @link https://developer.croudia.com/docs/75_mutes_users_ids
+         */
+        public function GET_mutes_users_ids ( $params = array() ){
+          return self::get("https://api.croudia.com/mutes/users/ids.json $params);
         }
 
         /**
