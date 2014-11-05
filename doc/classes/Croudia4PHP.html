@@ -138,10 +138,10 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1071975226"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1348727955"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1071975226" class="accordion-body collapse in">
+            <div id="namespace-1348727955" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                     
@@ -225,6 +225,10 @@
                                                                     <a href="../classes/Croudia4PHP.html#method_POST_statuses_share" class="">POST_statuses_share()</a><br />
                                                                     <a href="../classes/Croudia4PHP.html#method_POST_statuses_share_with_media" class="">POST_statuses_share_with_media()</a><br />
                                                                     <a href="../classes/Croudia4PHP.html#method_GET_trends_place" class="">GET_trends_place()</a><br />
+                                                                    <a href="../classes/Croudia4PHP.html#method_POST_mutes_users_create" class="">POST_mutes_users_create()</a><br />
+                                                                    <a href="../classes/Croudia4PHP.html#method_POST_mutes_users_destroy" class="">POST_mutes_users_destroy()</a><br />
+                                                                    <a href="../classes/Croudia4PHP.html#method_GET_mutes_users_list" class="">GET_mutes_users_list()</a><br />
+                                                                    <a href="../classes/Croudia4PHP.html#method_GET_mutes_users_ids" class="">GET_mutes_users_ids()</a><br />
                                                                     <a href="../classes/Croudia4PHP.html#method_GET_search_voices" class="">GET_search_voices()</a><br />
                                                                     <a href="../classes/Croudia4PHP.html#method_GET_users_search" class="">GET_users_search()</a><br />
                                                                     <a href="../classes/Croudia4PHP.html#method_GET_profile_search" class="">GET_profile_search()</a><br />
@@ -511,7 +515,7 @@
             <article class="method">
                 <h3 class="public ">get()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">get(string <span class="argument">$url</span>,  <span class="argument">$params</span>) : object|array</pre>
+                <pre class="signature" style="margin-right: 54px;">get(string <span class="argument">$url</span>, array <span class="argument">$params</span>) : object|array</pre>
                 <p><em>GET request</em></p>
                 
 
@@ -523,9 +527,9 @@
                                 <td><p>request URL</p></td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>array</td>
                                 <td>$params</td>
-                                <td></td>
+                                <td><p>request content</p></td>
                             </tr>
                                             </table>
                 
@@ -557,7 +561,7 @@
             <article class="method">
                 <h3 class="public ">post()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">post(string <span class="argument">$url</span>,  <span class="argument">$params</span>) : object|array</pre>
+                <pre class="signature" style="margin-right: 54px;">post(string <span class="argument">$url</span>, array <span class="argument">$params</span>) : object|array</pre>
                 <p><em>POST request</em></p>
                 
 
@@ -569,9 +573,9 @@
                                 <td><p>request URL</p></td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>array</td>
                                 <td>$params</td>
-                                <td></td>
+                                <td><p>request content</p></td>
                             </tr>
                                             </table>
                 
@@ -2330,6 +2334,180 @@
 
                                     <div class="row-fluid">
         <div class="span8 content class">
+            <a id="method_POST_mutes_users_create" name="method_POST_mutes_users_create" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">POST_mutes_users_create()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">POST_mutes_users_create(array <span class="argument">$params</span>) : \stdClass</pre>
+                <p><em>mute the specified user</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \stdClass
+                                            &mdash; <p>$res UserObject</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="https://developer.croudia.com/docs/71_mutes_users_create"><span class="namespace-wrapper">https://developer.croudia.com/docs/71_mutes_users_create</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_POST_mutes_users_destroy" name="method_POST_mutes_users_destroy" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">POST_mutes_users_destroy()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">POST_mutes_users_destroy(array <span class="argument">$params</span>) : \stdClass</pre>
+                <p><em>unmute the specified user</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \stdClass
+                                            &mdash; <p>UserObject</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="https://developer.croudia.com/docs/72_mutes_users_destroy"><span class="namespace-wrapper">https://developer.croudia.com/docs/72_mutes_users_destroy</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_GET_mutes_users_list" name="method_GET_mutes_users_list" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">GET_mutes_users_list()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">GET_mutes_users_list(array <span class="argument">$params</span>) : \stdClass</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \stdClass
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="https://developer.croudia.com/docs/74_mutes_users_list"><span class="namespace-wrapper">https://developer.croudia.com/docs/74_mutes_users_list</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_GET_mutes_users_ids" name="method_GET_mutes_users_ids" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">GET_mutes_users_ids()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">GET_mutes_users_ids(array <span class="argument">$params</span>) : \stdClass</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \stdClass
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="https://developer.croudia.com/docs/75_mutes_users_ids"><span class="namespace-wrapper">https://developer.croudia.com/docs/75_mutes_users_ids</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
             <a id="method_GET_search_voices" name="method_GET_search_voices" class="anchor"></a>
             <article class="method">
                 <h3 class="public ">GET_search_voices()</h3>
@@ -2553,7 +2731,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on April 20th, 2014 at 18:49.
+                    on November 5th, 2014 at 23:51.
                 </section>
             </section>
         </section>

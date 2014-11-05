@@ -1,8 +1,8 @@
 <?php
-    
+
 /**
  * Croudia4PHP
- * 
+ *
  * @author  ikr7
  * @package Croudia4PHP
  */
@@ -29,37 +29,38 @@ class Croudia4PHP {
 
     /**
      * GET request
-     * 
+     *
      * @return  object|array
      * @param   string  $url        request URL
-     * @param   array   $paramas    request content
+     * @param   array   $params    request content
      */
     public function get($url,$params){
-		$headers = array(
-			"Content-type: application/x-www-form-urlencoded", 
-			"Authorization: Bearer ".$this -> access_token
-		);
-        $opts["http"] = array(
-            "method" => "GET",
-            "header" => $headers,
-            "content" => http_build_query($params),
-            "ignore_errors" => true,
+        $headers = array(
+          "Content-type: application/x-www-form-urlencoded",
+          "Authorization: Bearer ".$this -> access_token
         );
+        $opts["http"] = array(
+          "method" => "GET",
+          "header" => $headers,
+        //  "content" => http_build_query($params),
+          "ignore_errors" => true,
+        );
+        $url .= $params ?  "?".http_build_query($params) : "" ;
         $res = file_get_contents($url, false, stream_context_create($opts));
         $this -> httphead = $http_response_header;
         return json_decode($res);
     }
-    
+
     /**
      * POST request
-     * 
+     *
      * @return  object|array
      * @param   string  $url        request URL
-     * @param   array   $paramas    request content
+     * @param   array   $params    request content
      */
     public function post($url,$params){
 		$headers = array(
-			"Content-type: application/x-www-form-urlencoded", 
+			"Content-type: application/x-www-form-urlencoded",
 			"Authorization: Bearer ".$this -> access_token
 		);
         $opts["http"] = array(
@@ -75,7 +76,7 @@ class Croudia4PHP {
 
     /**
      * POST requrest with media
-     * 
+     *
      * @param string $url
      * @param array $params
      * @param string|array $media
@@ -93,7 +94,7 @@ class Croudia4PHP {
                     "path" => $_FILES[$media]["tmp_name"],
                     "name" => $media_to,
                 );
-                
+
             }else{
                 $medias[0] = array(
                     "path" => $media,
@@ -189,14 +190,14 @@ class Croudia4PHP {
         $data = implode("\r\n", $lines);
 
         $headers = array(
-                        "Authorization: Bearer ".$this -> access_token, 
+                        "Authorization: Bearer ".$this -> access_token,
                         "Content-type: multipart/form-data; boundary=" . $boundary,
                         'Content-Length: '.strlen($data)
 
         );
         $opts["http"] = array(
-                "method" => "POST", 
-                "header"  =>  implode("\r\n", $headers), 
+                "method" => "POST",
+                "header"  =>  implode("\r\n", $headers),
                 "content" => $data,
                 "ignore_errors" => true,
         );
@@ -208,29 +209,29 @@ class Croudia4PHP {
 
         /**
          * Get authorize url
-         * 
+         *
          * @return string   authorize URL
-         * 
+         *
          */
         public function getAuthorizeURL(){
                 return "https://api.croudia.com/oauth/authorize?response_type=code&client_id=".$this -> client_id;
         }
         /**
          * set Access Token
-         * 
+         *
          * @return string   access_token
-         * @param string $code authorization_code 
+         * @param string $code authorization_code
          */
         public function setAccessToken($code){
                 $params = array(
-                        "grant_type" => "authorization_code", 
-                        "client_id" => $this -> client_id, 
-                        "client_secret" => $this -> client_secret, 
+                        "grant_type" => "authorization_code",
+                        "client_id" => $this -> client_id,
+                        "client_secret" => $this -> client_secret,
                         "code" => $code
                 );
 
                 $opts["http"] = array(
-                        "method" => "POST", 
+                        "method" => "POST",
                         "header"  => "Content-type: application/x-www-form-urlencoded",
                         "content" => http_build_query($params),
                         "ignore_errors" => true,
@@ -247,23 +248,23 @@ class Croudia4PHP {
                 $this -> refresh_token = $refresh_token;
                 return $this -> access_token;
         }
-        
+
         /**
          * refresh Access Token
-         * 
+         *
          * @return string access_token
-         * 
+         *
          */
         public function refreshAccessToken(){
                 $params = array(
-                        "grant_type" => "refresh_token", 
-                        "client_id" => $this -> client_id, 
-                        "client_secret" => $this -> client_secret, 
+                        "grant_type" => "refresh_token",
+                        "client_id" => $this -> client_id,
+                        "client_secret" => $this -> client_secret,
                         "refresh_token" => $this -> refresh_token,
                 );
 
                 $opts["http"] = array(
-                        "method" => "POST", 
+                        "method" => "POST",
                         "header"  => "Content-type: application/x-www-form-urlencoded",
                         "content" => http_build_query($params)
                 );
@@ -278,10 +279,10 @@ class Croudia4PHP {
 
         /**
          *  public timeline
-         * 
+         *
          * @param array $params
          * @return array $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/01_statuses_public_timeline
          */
         public function GET_statuses_public_timeline($params = array()){
@@ -291,10 +292,10 @@ class Croudia4PHP {
 
         /**
          *  home timeline
-         * 
+         *
          * @param array $params
          * @return array $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/02_statuses_home_timeline
          */
         public function GET_statuses_home_timeline($params = array()){
@@ -304,10 +305,10 @@ class Croudia4PHP {
 
         /**
          * Get User Timeline
-         * 
+         *
          * @param array $params
          * @return array $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/03_statuses_user_timeline
          */
         public function GET_statuses_user_timeline($params = array()){
@@ -317,10 +318,10 @@ class Croudia4PHP {
 
         /**
          * Mentions
-         * 
+         *
          * @param array $params
          * @return array $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/04_statuses_mentions
          */
         public function GET_statuses_mentions($params = array()){
@@ -330,10 +331,10 @@ class Croudia4PHP {
 
         /**
          * Update status
-         * 
+         *
          * @param array $params
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/11_statuses_update
          */
         public function POST_statuses_update($params = array()){
@@ -343,11 +344,11 @@ class Croudia4PHP {
 
         /**
          * update status with media
-         * 
+         *
          * @param array $params
          * @param  array|string $fname filename
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/14_statuses_update_with_media
          */
         public function POST_statuses_update_with_media($params = array(),$fname){
@@ -357,10 +358,10 @@ class Croudia4PHP {
 
         /**
          * destroy status
-         * 
+         *
          * @param array $params
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/12_statuses_destroy
          */
         public function POST_statuses_destroy($params = array()){
@@ -372,10 +373,10 @@ class Croudia4PHP {
 
         /**
          * Retrieve a status
-         * 
+         *
          * @param array $params
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/13_statuses_show
          */
         public function GET_statuses_show($params = array()){
@@ -386,10 +387,10 @@ class Croudia4PHP {
 
         /**
          * Get incoming secret mails
-         * 
+         *
          * @param array $params
          * @return array $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/21_secret_mails
          */
         public function GET_secret_mails($params = array()){
@@ -399,10 +400,10 @@ class Croudia4PHP {
 
         /**
          * Get outgoing secret mails
-         * 
+         *
          * @param array $params
          * @return array $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/22_secret_mails_sent
          */
         public function GET_secret_mails_sent($params = array()){
@@ -412,10 +413,10 @@ class Croudia4PHP {
 
         /**
          * Send a new secret mail
-         * 
+         *
          * @param array $params
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/23_secret_mails_new
          */
         public function POST_secret_mails_new($params = array()){
@@ -425,11 +426,11 @@ class Croudia4PHP {
 
         /**
          * Send a new secret mail with media
-         * 
+         *
          * @param array $params
          * @param  array|string $fname filename
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/26_secret_mails_new_with_media
          */
         public function POST_secret_mails_new_with_media($params = array(),$fname){
@@ -440,10 +441,10 @@ class Croudia4PHP {
 
         /**
          * destroy a secret mail
-         * 
+         *
          * @param array $params
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/24_secret_mails_destroy
          */
         public function POST_secret_mails_destroy($params = array()){
@@ -454,10 +455,10 @@ class Croudia4PHP {
 
         /**
          * Get a secret mail
-         * 
+         *
          * @param array $params
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/25_secret_mails_show
          */
         public function GET_secret_mails_show($params = array()){
@@ -468,10 +469,10 @@ class Croudia4PHP {
 
         /**
          * Retrieve a user
-         * 
+         *
          * @param array $params
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/31_users_show
          */
         public function GET_users_show($params = array()){
@@ -481,10 +482,10 @@ class Croudia4PHP {
 
         /**
          * Lookup Users
-         * 
+         *
          * @param array $params
          * @return array $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/32_users_lookup
          */
         public function GET_users_lookup($params = array()){
@@ -494,10 +495,10 @@ class Croudia4PHP {
 
         /**
          * Retrieve the Authenticated User
-         * 
+         *
          * @param array $params
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/35_account_verify_credentials
          */
         public function GET_account_verify_credentials($params = array()){
@@ -507,11 +508,11 @@ class Croudia4PHP {
 
         /**
          * Update profile image
-         * 
+         *
          * @param array $params
          * @param array|String $fname
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/36_account_update_profile_image
          */
         public function POST_account_update_profile_image($params = array(),$fname){
@@ -521,11 +522,11 @@ class Croudia4PHP {
 
         /**
          * Update cover image
-         * 
+         *
          * @param array $params
          * @param array|String $fname
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/39_account_update_cover_image
          */
         public function POST_account_update_cover_image($params = array(),$fname){
@@ -535,10 +536,10 @@ class Croudia4PHP {
 
         /**
          * Update profile
-         * 
+         *
          * @param array $params
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/37_account_update_profile
          */
         public function POST_account_update_profile($params = array()){
@@ -548,10 +549,10 @@ class Croudia4PHP {
 
         /**
          * Follow a user
-         * 
+         *
          * @param array $params
          * @return stdClass
-         * 
+         *
          * @link https://developer.croudia.com/docs/41_friendships_create
          */
         public function POST_friendships_create($params = array()){
@@ -561,10 +562,10 @@ class Croudia4PHP {
 
         /**
          * Unfollow a user
-         * 
+         *
          * @param array $params
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/42_friendships_destroy
          */
         public function POST_friendships_destroy($params = array()){
@@ -574,10 +575,10 @@ class Croudia4PHP {
 
         /**
          * Show relationship between two users
-         * 
+         *
          * @param array $params
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/44_friendships_show
          */
         public function GET_friendships_show($params = array()){
@@ -587,10 +588,10 @@ class Croudia4PHP {
 
         /**
          * Lookup friendships between the current user and others
-         * 
+         *
          * @param array $params
          * @return array $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/47_friendships_lookup
          */
         public function GET_friendships_lookup($params = array()){
@@ -600,10 +601,10 @@ class Croudia4PHP {
 
         /**
          * Friend ids of specified user
-         * 
+         *
          * @param array $params
          * @return stdClass $array
-         * 
+         *
          * @link https://developer.croudia.com/docs/48_friends_ids
          */
         public function GET_friends_ids($params = array()){
@@ -613,10 +614,10 @@ class Croudia4PHP {
 
         /**
          * Follower ids of specified user
-         * 
+         *
          * @param array $params
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/49_followers_ids
          */
         public function GET_followers_ids($params = array()){
@@ -626,10 +627,10 @@ class Croudia4PHP {
 
         /**
          * Friends of specified user
-         * 
+         *
          * @param array $params
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/40_friends_list
          */
         public function GET_friends_list($params = array()){
@@ -639,10 +640,10 @@ class Croudia4PHP {
 
         /**
          * Followers of specified user
-         * 
+         *
          * @param array $params
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/43_followers_list
          */
         public function GET_followers_list($params = array()){
@@ -653,23 +654,23 @@ class Croudia4PHP {
 
         /**
          * List of favorited statuses
-         * 
+         *
          * @param array $params
          * @return array $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/51_favorites
          */
         public function GET_favorites($params = array()){
                 $res = self::get("https://api.croudia.com/favorites.json", $params);
                 return $res;
-        }	
+        }
 
         /**
          * Favorite a status
-         * 
+         *
          * @param array $params
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/52_favorites_create
          */
         public function POST_favorites_create($params = array()){
@@ -680,10 +681,10 @@ class Croudia4PHP {
 
         /**
          * Unfavorite a status
-         * 
+         *
          * @param array $params
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/53_favorites_destroy
          */
         public function POST_favorites_destroy($params = array()){
@@ -694,10 +695,10 @@ class Croudia4PHP {
 
         /**
          * Spread a status
-         * 
+         *
          * @param array $params
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/61_statuses_spread
          */
         public function POST_statuses_spread($params = array()){
@@ -708,10 +709,10 @@ class Croudia4PHP {
 
         /**
          * Share (formerly reply with quote) a status
-         * 
+         *
          * @param array $params
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/110_statuses_share
          */
         public function POST_statuses_share($params = array()){
@@ -721,11 +722,11 @@ class Croudia4PHP {
 
         /**
          * Share (formerly reply with quote) a status with media
-         * 
+         *
          * @param array $params
          * @param array|String $fname filename
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/111_statuses_share_with_media
          */
         public function POST_statuses_share_with_media($params = array(),$fname){
@@ -737,10 +738,10 @@ class Croudia4PHP {
 
         /**
          * Retrieve the current trends
-         * 
+         *
          * @param array $params
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/100_trends_place
          */
         public function GET_trends_place($params = array()){
@@ -749,11 +750,59 @@ class Croudia4PHP {
         }
 
         /**
+         * mute the specified user
+         *
+         * @param array $params
+         * @return stdClass $res UserObject
+         *
+         * @link https://developer.croudia.com/docs/71_mutes_users_create
+         */
+        public function POST_mutes_users_create ($params = array()){
+          return self::post("https://api.croudia.com/mutes/users/create.json", $params);
+        }
+
+        /**
+         * unmute the specified user
+         *
+         * @param array $params
+         * @return stdClass UserObject
+         *
+         * @link https://developer.croudia.com/docs/72_mutes_users_destroy
+         */
+        public function POST_mutes_users_destroy ( $params = array() ){
+          return self::post("https://api.croudia.com/mutes/users/destroy.json", $params);
+        }
+
+        /**
+         *
+         *
+         * @param array $params
+         * @return stdClass
+         *
+         * @link https://developer.croudia.com/docs/74_mutes_users_list
+         */
+        public function GET_mutes_users_list ( $params = array() ){
+          return self::get("https://api.croudia.com/mutes/users/list.json", $params);
+        }
+
+        /**
+         *
+         *
+         * @param array $params
+         * @return stdClass
+         *
+         * @link https://developer.croudia.com/docs/75_mutes_users_ids
+         */
+        public function GET_mutes_users_ids ( $params = array() ){
+          return self::get("https://api.croudia.com/mutes/users/ids.json", $params);
+        }
+
+        /**
          * Search for statuses
-         * 
+         *
          * @param array $params
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/81_search
          */
         public function GET_search_voices($params = array()){
@@ -763,10 +812,10 @@ class Croudia4PHP {
 
         /**
          * Search for users
-         * 
+         *
          * @param array $params
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/82_users_search
          */
         public function GET_users_search($params = array()){
@@ -776,10 +825,10 @@ class Croudia4PHP {
 
         /**
          * Search for users with profile
-         * 
+         *
          * @param array $params
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/83_profile_search
          */
         public function GET_profile_search($params = array()){
@@ -789,10 +838,10 @@ class Croudia4PHP {
 
         /**
          * Search for statuses the authenticated user has favorited
-         * 
+         *
          * @param array $params
          * @return stdClass $res
-         * 
+         *
          * @link https://developer.croudia.com/docs/84_search_favorites
          */
         public function GET_search_favorites($params = array()){
@@ -802,3 +851,4 @@ class Croudia4PHP {
 
 
 }
+
