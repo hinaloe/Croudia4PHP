@@ -794,7 +794,7 @@ class Croudia4PHP {
          * @link https://developer.croudia.com/docs/75_mutes_users_ids
          */
         public function GET_mutes_users_ids ( $params = array() ){
-          return self::get("https://api.croudia.com/mutes/users/ids.json $params);
+          return self::get("https://api.croudia.com/mutes/users/ids.json", $params);
         }
 
         /**
