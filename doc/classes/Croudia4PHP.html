@@ -113,12 +113,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">14</span>
+                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">2</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
                                 </a>
                             </li>
                         </ul>
@@ -138,10 +138,10 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1348727955"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1818800648"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1348727955" class="accordion-body collapse in">
+            <div id="namespace-1818800648" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                     
@@ -165,7 +165,7 @@
                     <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
 
                     <h1><small>\</small>Croudia4PHP</h1>
-                    <p><em>Croudia4PHP</em></p>
+                    <p><em>Main Class</em></p>
                     
 
                     <section id="summary">
@@ -290,14 +290,6 @@
                     <table class="table table-condensed">
                                             <tr>
                             <th>
-                                author
-                            </th>
-                            <td>
-                                                                    <p>ikr7</p>
-                                                            </td>
-                        </tr>
-                                            <tr>
-                            <th>
                                 todo
                             </th>
                             <td>
@@ -321,11 +313,13 @@
             <a id="property_httphead" name="property_httphead" class="anchor"></a>
             <article class="property">
                 <h3 class="public ">$httphead</h3>
-                <pre class="signature">$httphead</pre>
+                <pre class="signature">$httphead : string</pre>
                 <p><em></em></p>
                 
 
-                            </article>
+                                <h4>Type</h4>
+                string
+                &mdash; Last responsed HTTP Header                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -379,11 +373,13 @@
             <a id="property_client_secret" name="property_client_secret" class="anchor"></a>
             <article class="property">
                 <h3 class="private ">$client_secret</h3>
-                <pre class="signature">$client_secret</pre>
-                <p><em></em></p>
+                <pre class="signature">$client_secret : string</pre>
+                <p><em>Options</em></p>
                 
 
-                            </article>
+                                <h4>Type</h4>
+                string
+                                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -407,11 +403,13 @@
             <a id="property_access_token" name="property_access_token" class="anchor"></a>
             <article class="property">
                 <h3 class="private ">$access_token</h3>
-                <pre class="signature">$access_token</pre>
-                <p><em></em></p>
+                <pre class="signature">$access_token : string</pre>
+                <p><em>Options</em></p>
                 
 
-                            </article>
+                                <h4>Type</h4>
+                string
+                                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -435,11 +433,13 @@
             <a id="property_refresh_token" name="property_refresh_token" class="anchor"></a>
             <article class="property">
                 <h3 class="private ">$refresh_token</h3>
-                <pre class="signature">$refresh_token</pre>
-                <p><em></em></p>
+                <pre class="signature">$refresh_token : string</pre>
+                <p><em>Options</em></p>
                 
 
-                            </article>
+                                <h4>Type</h4>
+                string
+                                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -471,21 +471,21 @@
             <article class="method">
                 <h3 class="public ">__construct()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">__construct( <span class="argument">$client_id</span>,  <span class="argument">$client_secret</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">__construct(string <span class="argument">$client_id</span>, string <span class="argument">$client_secret</span>)</pre>
+                <p><em>Constructor.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>string</td>
                                 <td>$client_id</td>
-                                <td></td>
+                                <td><p>client_id (Consumer key)</p></td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>string</td>
                                 <td>$client_secret</td>
-                                <td></td>
+                                <td><p>client_secret (Consumer secret)</p></td>
                             </tr>
                                             </table>
                 
@@ -2731,7 +2731,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on November 5th, 2014 at 23:51.
+                    on November 6th, 2014 at 00:34.
                 </section>
             </section>
         </section>

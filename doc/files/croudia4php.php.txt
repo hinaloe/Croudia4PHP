@@ -4,28 +4,45 @@
  * Croudia4PHP
  *
  * @author  ikr7
+ * @author  kimama1997
  * @package Croudia4PHP
+ * @version 1.0.1
+ * @github https://github.com/kimama1997/Croudia4PHP
  */
 
+/**
+ * Main Class
+ *
+ * @package Croudia4PHP
+ */
 class Croudia4PHP {
-    /**
-     * Options
-     *
-     * @var string
-     * @var string
-     * @var string
-     * @var string
-     */
-        private $client_id;
-        private $client_secret;
-        private $access_token;
-        private $refresh_token;
-        public  $httphead;
 
-        public function __construct($client_id, $client_secret) {
-                $this -> client_id = $client_id;
-                $this -> client_secret = $client_secret;
-        }
+  /**
+   * Options
+   *
+   * @var string $client_id
+   * @var string $client_secret
+   * @var string $access_token
+   */
+      private
+       $client_id,
+       $client_secret,
+       $access_token,
+       $refresh_token;
+   /** @var string $httphead   Last responsed HTTP Header */
+      public  $httphead;
+
+
+    /**
+     * Constructor.
+     *
+     * @param   string   $client_id     client_id (Consumer key)
+     * @param   string   $client_secret client_secret (Consumer secret)
+     */
+    public function __construct($client_id, $client_secret) {
+            $this -> client_id = $client_id;
+            $this -> client_secret = $client_secret;
+    }
 
     /**
      * GET request
